@@ -1,0 +1,174 @@
+/* Arte 1080×1920 — medidas em pixels reais.
+   A exportação lê a posição de cada caixa e letra daqui, então qualquer
+   ajuste feito neste arquivo aparece igual no PNG/JPG.
+   Sombras, faixa diagonal e linhas são posicionadas por js/app.js a partir
+   de js/layouts.js (mesma fonte de dados usada na exportação). */
+
+.art {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1080px;
+  height: 1920px;
+  transform-origin: top left;
+  overflow: hidden;
+  background: #0a0a0c;
+}
+
+.art-photo {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.art-shade,
+.art-boost { position: absolute; inset: 0; pointer-events: none; }
+
+.art-band {
+  position: absolute;
+  left: -108px;
+  right: -108px;
+  height: 691px;
+  transform: rotate(-4.573deg);
+  pointer-events: none;
+}
+.art-band[hidden] { display: none; }
+
+.art-line {
+  position: absolute;
+  left: -54px;
+  width: 1188px;
+  transform: rotate(-4.573deg);
+  pointer-events: none;
+}
+.art-line-1 { height: 2px; background: #e6007e; }
+.art-line-2 { height: 1px; background: linear-gradient(to right, rgba(230,0,126,.05), rgba(230,0,126,.55)); }
+
+.art-guide { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.art-guide[hidden] { display: none; }
+.art-guide-34, .art-guide-45 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.art-guide-34 { height: 1440px; border: 2px dashed rgba(255,255,255,.5); }
+.art-guide-45 { height: 1350px; border: 3px dashed rgba(230,0,126,.95); }
+
+/* Área de texto = recorte 4:5 central (1080×1350, começa em y=285) */
+.art-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 285px;
+  height: 1350px;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 65px 28px;
+}
+
+.art-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: auto;           /* layout "rodapé" */
+}
+.art[data-layout="topo"] .art-block { margin-top: 0; margin-bottom: auto; }
+.art[data-layout="meio"] .art-block { margin-top: auto; margin-bottom: auto; max-width: 720px; }
+
+.art-badge,
+.art-kicker,
+.art-title,
+.art-process-text,
+.art-cta {
+  white-space: pre-line;
+  overflow-wrap: break-word;
+  text-transform: uppercase;
+  color: #ffffff;
+  max-width: 100%;
+}
+
+.art-badge {
+  display: inline-block;
+  border: 2px solid #e6007e;
+  background: rgba(10,10,12,.55);
+  padding: 9px 17px;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: .14em;
+}
+
+.art-kicker {
+  display: inline-block;
+  background: #e6007e;
+  padding: 14px 17px 10px;
+  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 57px;
+  line-height: 1.2;
+  letter-spacing: .005em;
+}
+
+.art-title {
+  display: inline-block;
+  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 89px;
+  line-height: 1.14;
+  letter-spacing: -.005em;
+}
+
+.art-process {
+  position: relative;
+  max-width: 100%;
+  margin-top: 12px;
+  background: rgba(10,10,12,.66);
+  padding: 16px 21px 17px;
+}
+
+.art-process-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 151px;
+  height: 3px;
+  background: #e6007e;
+}
+
+.art-process-text {
+  display: block;
+  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1.18;
+}
+
+.art-foot {
+  width: 100%;
+  margin-top: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 38px;
+}
+
+.art-logo { height: 76px; width: auto; display: block; flex: none; }
+
+.art-cta {
+  color: #e6007e;
+  text-align: right;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 37px;
+  line-height: 1;
+  letter-spacing: .16em;
+}
+
+[data-empty="true"] { display: none !important; }

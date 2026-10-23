@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gerador de Thumbnail · AcrylicArt</title>
+<meta name="description" content="Gerador de capas 1080×1920 para Reels no padrão visual da AcrylicArt.">
+<link rel="icon" href="assets/logo-branco.png">
+<link rel="stylesheet" href="css/fontes.css">
+<link rel="stylesheet" href="css/arte.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <span class="topbar-brand">AcrylicArt</span>
+    <span class="topbar-sub">Gerador de thumbnail · 1080 × 1920</span>
+    <span class="topbar-rule"></span>
+  </header>
+
+  <main class="layout">
+    <section class="stage" aria-label="Pré-visualização">
+      <div class="toolbar">
+        <div class="dd" id="layoutDD">
+          <button class="btn dd-trigger" id="bLayout" type="button" aria-haspopup="true" aria-expanded="false">
+            <span class="dd-trigger-label">Layout</span>
+            <strong id="layoutNome">Rodapé</strong>
+            <svg class="dd-chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="dd-menu" role="menu" aria-label="Escolher layout">
+            <button class="dd-item" type="button" role="menuitemradio" data-layout="rodape">
+              <span class="mini mini-rodape" aria-hidden="true"><i class="mini-l"></i><i class="mini-a"></i><i class="mini-b"></i><i class="mini-c"></i></span>
+              <span class="dd-text"><b>Rodapé</b><small>Texto embaixo · produto em cima</small></span>
+            </button>
+            <button class="dd-item" type="button" role="menuitemradio" data-layout="topo">
+              <span class="mini mini-topo" aria-hidden="true"><i class="mini-l"></i><i class="mini-a"></i><i class="mini-b"></i><i class="mini-c"></i></span>
+              <span class="dd-text"><b>Topo</b><small>Texto em cima · produto embaixo</small></span>
+            </button>
+            <button class="dd-item" type="button" role="menuitemradio" data-layout="meio">
+              <span class="mini mini-meio" aria-hidden="true"><i class="mini-l"></i><i class="mini-a"></i><i class="mini-b"></i><i class="mini-c"></i></span>
+              <span class="dd-text"><b>Meio à esquerda</b><small>Texto ao centro · produto à direita</small></span>
+            </button>
+          </div>
+        </div>
+        <button class="btn btn-ghost" id="bSim" type="button">Simular no Instagram</button>
+      </div>
+
+      <div id="frame" class="frame">
+        <div id="art" class="art" data-layout="rodape">
+          <div id="photo" class="art-photo"></div>
+          <div id="shade" class="art-shade"></div>
+          <div id="boost" class="art-boost"></div>
+          <div id="band" class="art-band"></div>
+          <div id="line1" class="art-line art-line-1"></div>
+          <div id="line2" class="art-line art-line-2"></div>
+
+          <div id="guide" class="art-guide" hidden>
+            <div class="art-guide-34"></div>
+            <div class="art-guide-45"></div>
+          </div>
+
+          <div class="art-content">
+            <div id="block" class="art-block">
+              <span class="art-badge" data-box data-text data-field="badge"></span>
+              <span class="art-kicker" data-box data-text data-field="kicker"></span>
+              <span class="art-title" data-text data-field="title"></span>
+              <div class="art-process" data-box data-wrap="process">
+                <i class="art-process-mark" data-box></i>
+                <span class="art-process-text" data-text data-field="process"></span>
+              </div>
+            </div>
+            <div class="art-foot">
+              <img id="logo" class="art-logo" data-img alt="AcrylicArt">
+              <span class="art-cta" data-text data-field="cta"></span>
+            </div>
+          </div>
+        </div>
+
+        <div id="adjust" class="adjust" hidden>
+          <span class="adjust-hint">Arraste para mover · role para zoom · setas ajustam</span>
+        </div>
+      </div>
+
+      <div id="adjustBar" class="adjust-bar" hidden>
+        <label class="adjust-label" for="zoom">Tamanho</label>
+        <input id="zoom" type="range" min="100" max="300" step="1" value="100">
+        <span id="zoomLabel" class="adjust-value">100%</span>
+        <div class="adjust-actions">
+          <button class="btn btn-ghost" id="bCenter" type="button">Centralizar</button>
+          <button class="btn" id="bDone" type="button">Concluir</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="bText" type="button">Alterar texto</button>
+        <button class="btn" id="bImg" type="button">Alterar imagem</button>
+        <button class="btn" id="bAdjust" type="button" aria-pressed="false">Reposicionar / redimensionar</button>
+        <button class="btn btn-ghost" id="bGuide" type="button" aria-pressed="false">Ver cortes</button>
+        <input id="file" type="file" accept="image/*,.heic,.heif" hidden>
+      </div>
+      <p class="note">Linha branca = 3:4 (grade do perfil) · linha magenta = 4:5 (feed). O texto precisa ficar dentro da magenta.</p>
+    </section>
+
+    <aside class="panel" aria-label="Edição">
+      <div class="panel-section">
+        <h2 class="panel-title">Textos</h2>
+        <label class="field">
+          <span class="field-label">Selo <em>contorno magenta</em></span>
+          <textarea id="f-badge" data-input="badge" rows="1" maxlength="40"></textarea>
+        </label>
+        <label class="field">
+          <span class="field-label">Destaque <em>bloco magenta</em></span>
+          <textarea id="f-kicker" data-input="kicker" rows="1" maxlength="40"></textarea>
+        </label>
+        <label class="field">
+          <span class="field-label">Título principal <em>letra grande</em></span>
+          <textarea id="f-title" data-input="title" rows="2" maxlength="60"></textarea>
+        </label>
+        <label class="field">
+          <span class="field-label">Processo <em>faixa escura · vazio esconde</em></span>
+          <textarea id="f-process" data-input="process" rows="1" maxlength="60"></textarea>
+        </label>
+        <label class="field">
+          <span class="field-label">Chamada <em>canto inferior direito</em></span>
+          <textarea id="f-cta" data-input="cta" rows="1" maxlength="30"></textarea>
+        </label>
+        <p class="panel-hint">Enter quebra a linha. Textos longos quebram sozinhos.</p>
+        <p id="warn" class="warn" hidden>O texto passou da área segura do feed (4:5). Encurte ou quebre em menos linhas.</p>
+        <button class="btn btn-ghost btn-small" id="bReset" type="button">Restaurar textos padrão</button>
+      </div>
+
+      <div class="panel-section">
+        <h2 class="panel-title">Contraste</h2>
+        <label class="switch">
+          <input type="checkbox" id="autoContrast" checked>
+          <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+          <span>Contraste automático</span>
+        </label>
+        <p id="contrastStatus" class="panel-hint"></p>
+      </div>
+
+      <div class="panel-section">
+        <h2 class="panel-title">Baixar</h2>
+        <div class="seg" role="radiogroup" aria-label="Formato">
+          <label class="seg-opt"><input type="radio" name="fmt" value="png" checked><span>PNG</span></label>
+          <label class="seg-opt"><input type="radio" name="fmt" value="jpg"><span>JPG</span></label>
+        </div>
+        <button class="btn btn-primary btn-block" id="bDown" type="button">Baixar imagem <kbd class="kbd">Ctrl S</kbd></button>
+        <p id="status" class="panel-hint" aria-live="polite"></p>
+      </div>
+
+      <details class="panel-section shortcuts">
+        <summary class="panel-title">Atalhos</summary>
+        <dl>
+          <dt><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">S</kbd></dt><dd>Baixar imagem</dd>
+          <dt><kbd class="kbd">←</kbd> <kbd class="kbd">↑</kbd> <kbd class="kbd">→</kbd> <kbd class="kbd">↓</kbd></dt><dd>Mover a foto (com <kbd class="kbd">Shift</kbd>, passo maior)</dd>
+          <dt><kbd class="kbd">+</kbd> <kbd class="kbd">−</kbd></dt><dd>Zoom da foto</dd>
+          <dt><kbd class="kbd">0</kbd></dt><dd>Centralizar a foto</dd>
+          <dt><kbd class="kbd">1</kbd> <kbd class="kbd">2</kbd> <kbd class="kbd">3</kbd></dt><dd>Layout rodapé / topo / meio</dd>
+          <dt><kbd class="kbd">G</kbd></dt><dd>Mostrar cortes</dd>
+          <dt><kbd class="kbd">P</kbd></dt><dd>Simular no Instagram</dd>
+          <dt><kbd class="kbd">Esc</kbd></dt><dd>Fechar ajuste / simulador</dd>
+        </dl>
+        <p class="panel-hint">Os atalhos de uma tecla não funcionam enquanto você digita num campo de texto.</p>
+      </details>
+    </aside>
+  </main>
+</div>
+
+<div id="sim" class="modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="simTitle">
+    <header class="modal-head">
+      <h2 id="simTitle" class="panel-title">Como aparece no Instagram</h2>
+      <button class="btn btn-ghost" id="simClose" type="button">Fechar</button>
+    </header>
+    <div class="sim-grid">
+      <figure class="sim-item">
+        <div class="sim-view sim-reels"><img class="sim-img" alt="Prévia Reels"></div>
+        <figcaption><b>Reels</b> 9:16 · tela cheia</figcaption>
+      </figure>
+      <figure class="sim-item">
+        <div class="sim-view sim-feed"><img class="sim-img" alt="Prévia feed"></div>
+        <figcaption><b>Feed</b> 4:5 · corte central</figcaption>
+      </figure>
+      <figure class="sim-item">
+        <div class="sim-profile">
+          <div class="sim-tile"><img class="sim-img" alt="Prévia grade"></div>
+          <div class="sim-tile sim-tile-empty"></div>
+          <div class="sim-tile sim-tile-empty"></div>
+          <div class="sim-tile sim-tile-empty"></div>
+          <div class="sim-tile sim-tile-empty"></div>
+          <div class="sim-tile sim-tile-empty"></div>
+        </div>
+        <figcaption><b>Grade do perfil</b> 3:4 · corte central</figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
+
+<script src="js/vendor/heic-to.js" defer></script>
+<div id="aviso" class="modal" hidden>
+  <div class="modal-card aviso-card" role="alertdialog" aria-modal="true" aria-labelledby="avisoTitulo" aria-describedby="avisoMsg">
+    <header class="aviso-head">
+      <span class="aviso-marca">LUCRA</span>
+      <span id="avisoTitulo" class="aviso-titulo">diz</span>
+    </header>
+    <p id="avisoMsg" class="aviso-msg"></p>
+    <div class="aviso-acoes">
+      <button class="btn btn-primary" id="avisoOk" type="button">Entendi</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/assets-embutidos.js"></script>
+<script src="js/armazenamento.js"></script>
+<script src="js/layouts.js"></script>
+<script src="js/exportar.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
